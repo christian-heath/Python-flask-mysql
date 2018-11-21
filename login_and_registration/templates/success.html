@@ -1,0 +1,114 @@
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Success</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .big_form {
+            padding: 15px;
+            margin-top: 50px;
+            border-style: solid;
+            border-width: 5px;
+            border-radius: 8px;
+            width: 450px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+        }
+
+        #button {
+            margin-top: 10px;
+        }
+
+        #registration {
+            display: inline-block;
+            float: left;
+        }
+
+        #login {
+            display: inline-block;
+            float: right;
+        }
+        #introduction{
+            display: inline-block;
+        }
+        #logout{
+            margin-left: 950px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-primary">
+        <h1 id="introduction" class='header'>Hello {{ session['user_id'][0]['first_name'] }}!</h1>
+        <form method = 'post' action="/logout">
+            <button type="submit" value='submit' id="logout" class="btn btn-primary">Logout</button>
+        </form>
+    </nav>
+    <div class="container">
+        <form id="registration" class='big_form' action='/register' method='post'>
+            <div class="form-group">
+                {% with messages = get_flashed_messages(category_filter=["registration_error"]) %}
+                {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{message}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h1>Message Board</h1>
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+
+        </form>
+        <form id="login" class='big_form' action='/login' method='post'>
+            <div class="form-group">
+                {% with messages = get_flashed_messages(category_filter=["login_error"]) %}
+                {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{message}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h1>Send Messages</h1>
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1"></label>
+
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .big_form{
+                padding: 15px;
+                margin-top: 50px;
+                border-style: solid;
+                border-width: 5px;
+                border-radius: 8px;
+            }
+            .header{
+                text-align: center;
+            }
+            .error{
+                color: red;
+            }
+            #button{
+                margin-top: 10px;
+            }
+        </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-primary">
+        <h1 class='header'>Email Validation</h1>
+    </nav>
+    <div class="container">
+    <form class='big_form' action='/process' method='post'>
+        <div class="form-group">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="error">{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <label for="exampleFormControlInput1">Email:</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name='email' value="{{ session['email'] }}">
+            <button type="submit" value='submit' id="button" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</body>
+
+</html>

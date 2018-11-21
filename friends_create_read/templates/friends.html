@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <title>Friends</title>
+    <style>
+        h1 {
+            margin-left: 30%
+        }
+        h2{
+            margin-left: 20%;
+        }
+        .big_form{
+                padding: 15px;
+                border-style: solid;
+                border-width: 5px;
+                border-radius: 8px;
+            }
+        .error{
+                color: red;
+            }
+        .container{
+            width: 510px;
+            height: 390px;
+            margin-bottom: 30px;
+        }
+        .scrollbox{
+            height: 250px;
+            overflow-y: scroll;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>These are all my friends!</h1>
+    <div class="scrollbox">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Occupation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(friends|length) %}
+                <tr>
+                    <th scope="row">{{ friends[i]['id'] }}</th>
+                    <td>{{ friends[i]['first_name'] }}</td>
+                    <td>{{ friends[i]['last_name'] }}</td>
+                    <td>{{ friends[i]['occupation'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <h2>Add new friends!</h2>
+        <form class='big_form' action='/create_friend' method='post'>
+            <div class="form-group">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p class="error">{{message}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <label for="exampleFormControlInput1">First Name:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='first_name' value="{{ session['first_name'] }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Last Name:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='last_name' value="{{ session['last_name'] }}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Occupation:</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name='occupation' value="{{ session['occupation'] }}">
+            </div>
+            <button type="submit" value='submit' class="btn btn-success">Add</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

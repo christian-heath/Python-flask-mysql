@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <title>Clients and Leads</title>
+    <style>
+        .big_form {
+            padding: 15px;
+            border-style: solid;
+            border-width: 5px;
+            border-radius: 8px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .container {
+            width: 510px;
+            height: 390px;
+            margin-bottom: 30px;
+        }
+
+        .scrollbox {
+            height: 250px;
+            overflow-y: scroll;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-light">
+        <h3>Report Dashboard</h3>
+    </nav>
+    <div class="scrollbox">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Number of Leads</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(clients|length) %}
+                <tr>
+                    <th scope="row">{{ clients[i]['id'] }}</th>
+                    <td>{{ clients[i]['Name'] }}</td>
+                    <td>{{ clients[i]['leads'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <script>
+        window.onload = function () {
+
+            var options = {
+                title: {
+                    text: "Customers and number of new leads"
+                },
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}",
+                    dataPoints: [
+                        {% for i in clients %}
+                        { y: {{ i['leads'] }}, label: "{{ i['Name'] }}" },
+                        {% endfor %}
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+        }
+    </script>
+</body>
+
+</html>
